@@ -19,7 +19,7 @@ WebServer server(80);  // Create a web server on port 80
 unsigned long timerStarttime = 0;  // Timer start time
 unsigned long timerDuration = 0;  // Store user-input timer duration (in milliseconds)
 unsigned int ap=0;
-String state="off";
+String state="off"; 
 // Dummy sensor values for Auto Mode
 int sensor1 = 12;
 int sensor2 = 34;
@@ -125,7 +125,7 @@ void setup() {
     WiFi.softAP("ESP32-Connect",NULL);
     IPAddress local_IP(192, 168, 4, 1);
     IPAddress gateway(192, 168, 4, 1);
-    IPAddress subnet(255, 255, 255, 0);   
+    IPAddress subnet(255, 255, 255, 0); 
     WiFi.softAPConfig(local_IP, gateway, subnet);
     server.on("/", HTTP_GET, handleWifiPage);
     server.on("/wifi", HTTP_POST, handleWifi);
@@ -145,6 +145,8 @@ void setup() {
   } else {
     Serial.println("mDNS responder started. Access via http://esp32.local");
   }
+  MDNS.addService("_http","_tcp",80);
+  MDNS.addServiceTxt("_http","_tcp","board","ESP32");
   server.begin();
 }
 
