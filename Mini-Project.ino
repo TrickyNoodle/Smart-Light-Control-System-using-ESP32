@@ -41,6 +41,9 @@ void handleWifi(){
           prefs.end();
           ESP.restart();
         }
+        else{
+          server.send(200,"text/html","<h1> Wifi Connection Unsuccesful<h1>");
+        }
 
     } else {
         server.send(400, "text/html", "<h2>Bad Request</h2>");
